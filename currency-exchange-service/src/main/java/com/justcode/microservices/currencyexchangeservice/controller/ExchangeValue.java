@@ -1,4 +1,4 @@
-package com.justcode.microservices.currencyexchangeservice;
+package com.justcode.microservices.currencyexchangeservice.controller;
 
 import java.math.BigDecimal;
 
