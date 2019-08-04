@@ -2,11 +2,20 @@ package com.justcode.microservices.currencyexchangeservice.controller;
 
 import java.math.BigDecimal;
 
-public class ExchangeValue {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
-	private String from;
-	private String to;
+
+
+@Entity
+public class ExchangeValue {
+	@Id
 	private Long id;
+	@Column(name="currency_from")
+	private String from;
+	@Column(name="currency_to")
+	private String to;	
 	private BigDecimal conversionMultiple;
 	private int port;
 	
