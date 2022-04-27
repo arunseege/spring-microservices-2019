@@ -17,7 +17,7 @@ public class CurrencyConversionController {
 	@Autowired(required=true)
 	private CurrencyExchangeServiceProxy exchangeProxy; 
 	
-	@GetMapping("/currency-converter/from/{from}/to/{to}/quantity/{quantity}")
+	@GetMapping("/currency-conversion/from/{from}/to/{to}/quantity/{quantity}")
 	public CurrencyConversionBean convertCurrency(@PathVariable String from,@PathVariable String to,@PathVariable BigDecimal quantity) {
 		Map<String,String> uriVariables = new HashMap<>();
 		uriVariables.put("from", from);
@@ -25,13 +25,13 @@ public class CurrencyConversionController {
 		ResponseEntity<CurrencyConversionBean> responseEntity = new RestTemplate().getForEntity("http://localhost:8000/currency-exchange/from/{from}/to/{to}", CurrencyConversionBean.class,uriVariables);
 		CurrencyConversionBean response =	responseEntity.getBody();
 		System.out.println("response---"+response.getConversionMultiple());
-		return new  CurrencyConversionBean(response.getId(), from, to, response.getConversionMultiple(), quantity, quantity.multiply(response.getConversionMultiple()), response.getPort());
+		return new  CurrencyConversionBean(response.getId(), from, to, response.getConversionMultiple(), quantity, quantity.multiply(response.getConversionMultiple()), response.getEnvironment()+" "+" rest template");
 	
 	}
-	@GetMapping("/currency-converter-feign/from/{from}/to/{to}/quantity/{quantity}")
+	@GetMapping("/currency-conversion-feign/from/{from}/to/{to}/quantity/{quantity}")
 	public CurrencyConversionBean convertCurrencyFeign(@PathVariable String from,@PathVariable String to,@PathVariable BigDecimal quantity) {
 		CurrencyConversionBean response=exchangeProxy.retrieveExchangeValue(from, to);
-		return new  CurrencyConversionBean(response.getId(), from, to, response.getConversionMultiple(), quantity, quantity.multiply(response.getConversionMultiple()), response.getPort());
+		return new  CurrencyConversionBean(response.getId(), from, to, response.getConversionMultiple(), quantity, quantity.multiply(response.getConversionMultiple()), response.getEnvironment()+" "+" feign");
 	
 	}
 }

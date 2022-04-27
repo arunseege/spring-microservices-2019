@@ -18,7 +18,16 @@ public class ExchangeValue {
 	private String to;	
 	private BigDecimal conversionMultiple;
 	private int port;
+	private String environment;
 	
+	public String getEnvironment() {
+		return environment;
+	}
+
+	public void setEnvironment(String environment) {
+		this.environment = environment;
+	}
+
 	public ExchangeValue() {
 	}
 	
